@@ -1,0 +1,61 @@
+{
+   "abstract" : "Wrappers for Term::ReadLine's new event_loop model.",
+   "author" : [
+      "Darin McBride <dmcbride@cpan.org>"
+   ],
+   "dynamic_config" : 0,
+   "generated_by" : "Dist::Zilla version 4.300010, CPAN::Meta::Converter version 2.120630",
+   "license" : [
+      "perl_5"
+   ],
+   "meta-spec" : {
+      "url" : "http://search.cpan.org/perldoc?CPAN::Meta::Spec",
+      "version" : "2"
+   },
+   "name" : "Term-ReadLine-Event",
+   "prereqs" : {
+      "build" : {
+         "requires" : {
+            "Module::Build" : "0.3601"
+         }
+      },
+      "configure" : {
+         "requires" : {
+            "Module::Build" : "0.3601"
+         }
+      },
+      "runtime" : {
+         "requires" : {
+            "Scalar::Util" : "0",
+            "Term::ReadLine" : "1.09",
+            "perl" : "5.006",
+            "strict" : "0",
+            "warnings" : "0"
+         },
+         "suggests" : {
+            "AnyEvent" : "0",
+            "Coro" : "0",
+            "IO::Async" : "0",
+            "IO::Poll" : "0",
+            "POE" : "0",
+            "Reflex" : "0.097"
+         }
+      },
+      "test" : {
+         "requires" : {
+            "Test::More" : "0",
+            "parent" : "0"
+         }
+      }
+   },
+   "release_status" : "stable",
+   "resources" : {
+      "repository" : {
+         "type" : "git",
+         "url" : "git://github.com/dmcbride/Term-ReadLine-Event.git",
+         "web" : "https://github.com/dmcbride/Term-ReadLine-Event"
+      }
+   },
+   "version" : "0.01"
+}
+

@@ -15,6 +15,9 @@ meta-spec:
   url: http://module-build.sourceforge.net/META-spec-v1.4.html
   version: 1.4
 name: Term-ReadLine-Event
+no_index:
+  directory:
+    - ex
 requires:
   Scalar::Util: 0
   Term::ReadLine: 1.09
@@ -23,4 +26,4 @@ requires:
   warnings: 0
 resources:
   repository: git://github.com/dmcbride/Term-ReadLine-Event.git
-version: 0.01
+version: 0.02

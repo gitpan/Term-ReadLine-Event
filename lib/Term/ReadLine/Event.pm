@@ -1,6 +1,6 @@
 package Term::ReadLine::Event;
 {
-  $Term::ReadLine::Event::VERSION = '0.01';
+  $Term::ReadLine::Event::VERSION = '0.02';
 }
 
 use 5.006;
@@ -246,7 +246,7 @@ Term::ReadLine::Event - Wrappers for Term::ReadLine's new event_loop model.
 
 =head1 VERSION
 
-version 0.01
+version 0.02
 
 =head1 SYNOPSIS
 

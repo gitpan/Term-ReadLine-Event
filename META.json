@@ -13,6 +13,11 @@
       "version" : "2"
    },
    "name" : "Term-ReadLine-Event",
+   "no_index" : {
+      "directory" : [
+         "ex"
+      ]
+   },
    "prereqs" : {
       "build" : {
          "requires" : {
@@ -56,6 +61,6 @@
          "web" : "https://github.com/dmcbride/Term-ReadLine-Event"
       }
    },
-   "version" : "0.01"
+   "version" : "0.02"
 }
 

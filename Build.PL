@@ -19,7 +19,7 @@ my %module_build_args = (
     "Darin McBride <dmcbride\@cpan.org>"
   ],
   "dist_name" => "Term-ReadLine-Event",
-  "dist_version" => "0.01",
+  "dist_version" => "0.02",
   "license" => "perl",
   "module_name" => "Term::ReadLine::Event",
   "recommends" => {},

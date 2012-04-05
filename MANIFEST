@@ -14,6 +14,7 @@ ex/IO-Poll.pl
 ex/LICENSE
 ex/POE.pl
 ex/Reflex.pl
+ex/Tk.pl
 ex/lib/ExampleHelpers.pm
 ex/select.pl
 ignore.txt
@@ -24,6 +25,7 @@ t/10-Coro.t
 t/10-IO-Async.t
 t/10-POE.t
 t/10-Reflex.t
+t/10-Tk.t
 t/20-POE_and_AE.t
 t/40-custom_trl.t
 t/pod-coverage.t

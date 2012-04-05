@@ -1,7 +1,7 @@
 
 
 This archive contains the distribution Term-ReadLine-Event,
-version 0.02:
+version 0.03:
 
   Wrappers for Term::ReadLine's new event_loop model.
 

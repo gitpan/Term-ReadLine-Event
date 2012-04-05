@@ -1,6 +1,6 @@
 package Term::ReadLine::Event;
 {
-  $Term::ReadLine::Event::VERSION = '0.02';
+  $Term::ReadLine::Event::VERSION = '0.03';
 }
 
 use 5.006;
@@ -194,6 +194,35 @@ sub with_Reflex
 }
 
 
+sub with_Tk
+{
+    my $self = _new(@_);
+
+    $self->trl->event_loop(
+                           sub {
+                               my $data = shift;
+                               Tk::DoOneEvent(0) until $$data;
+                               $$data = 0;
+                           },
+                           sub {
+                               # save filehandle for unhooking later.
+                               $self->{tkFH} = shift;
+                               my $data;
+                               $$data = 0;
+                               Tk->fileevent($self->{tkFH}, 'readable', sub { $$data = 1 });
+                               $data;
+                           },
+                          );
+
+    $self->{_cleanup} = sub {
+        my $s = shift;
+        Tk->fileevent($s->{tkFH}, 'readable', "");
+    };
+
+    $self;
+}
+
+
 sub DESTROY
 {
     my $self = shift;
@@ -246,12 +275,9 @@ Term::ReadLine::Event - Wrappers for Term::ReadLine's new event_loop model.
 
 =head1 VERSION
 
-version 0.02
+version 0.03
 
 =head1 SYNOPSIS
-
-Provides many of the event loop interactions shown in the examples
-as a small change to your code rather than the longer code required.
 
     use AnyEvent;
     use Term::ReadLine::Event;
@@ -260,16 +286,23 @@ as a small change to your code rather than the longer code required.
 
     my $input = $term->readline('Prompt >');
 
+=head1 DESCRIPTION
+
+Provides many of the event loop interactions shown in the examples
+provided as a small change to your code rather than the longer code
+required.
+
 This may actually be sufficient for your use, or it may not.  This likely
 depends on the loop being used.
 
 =head1 HISTORY
 
 This project started with a goal: to get L<Term::ReadLine> working under
-Coro.  Since Coro used AnyEvent, I thought that getting L<Term::ReadLine>
-to use AnyEvent instead of Tk directly would be a win.  Conversations
-ensued, and it sounded like P5P generally liked the idea, but didn't want
-anything AnyEvent-specific when it could be more generic than that.
+L<Coro>.  Since L<Coro> used L<AnyEvent>, I thought that getting
+L<Term::ReadLine> to use AnyEvent instead of Tk directly would be a win.
+Conversations ensued, and it sounded like P5P generally liked the idea, but
+didn't want anything AnyEvent-specific when it could be more generic than
+that.
 
 Through a couple of iterations, the event_loop interface was born.  However,
 since this was no longer as simple as the old Tk interface (C<$term-E<gt>tkRunning(1)>),
@@ -391,6 +424,10 @@ Creates a L<Term::ReadLine> object and sets it up for use with L<POE>.
 =head2 with_Reflex
 
 Creates a L<Term::ReadLine> object and sets it up for use with L<Reflex>.
+
+=head2 with_Tk
+
+Creates a L<Term::ReadLine> object and sets it up for use with L<Tk>.
 
 =head2 DESTROY
 

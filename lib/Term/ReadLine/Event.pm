@@ -1,6 +1,6 @@
 package Term::ReadLine::Event;
 {
-  $Term::ReadLine::Event::VERSION = '0.03';
+  $Term::ReadLine::Event::VERSION = '0.04';
 }
 
 use 5.006;
@@ -23,6 +23,7 @@ sub _new {
        Term::ReadLine->new(ref $app ? @$app : $app);
     $self;
 }
+
 
 sub with_AnyEvent {
     my $self = _new(@_);
@@ -89,9 +90,9 @@ sub with_IO_Async {
                                $self->{loop}->add(
                                                   $self->{watcher} =
                                                   IO::Async::Handle->new(
-                                                                                    read_handle => $fh,
-                                                                                    on_read_ready => sub { $$ready = 1 },
-                                                                                   )
+                                                                         read_handle => $fh,
+                                                                         on_read_ready => sub { $$ready = 1 },
+                                                                        )
                                                  );
                                $ready;
                            }
@@ -242,31 +243,24 @@ sub trl
     $self->{_term};
 }
 
-
-sub readline
+our $AUTOLOAD;
+sub AUTOLOAD
 {
-    my $self = shift;
-    $self->trl->readline(@_);
-}
+    (my $f = $AUTOLOAD) =~ s/.*:://;
 
+    no strict 'refs';
+    *{$f} = sub {
+        shift->trl()->$f(@_);
+    };
 
-sub Attribs
-{
-    my $self = shift;
-    $self->trl->Attribs(@_);
-}
-
-
-sub addhistory
-{
-    my $self = shift;
-    $self->trl->addhistory(@_);
+    goto &$f;
 }
 
 
 1; # End of Term::ReadLine::Event
 
 __END__
+
 =pod
 
 =head1 NAME
@@ -275,7 +269,7 @@ Term::ReadLine::Event - Wrappers for Term::ReadLine's new event_loop model.
 
 =head1 VERSION
 
-version 0.03
+version 0.04
 
 =head1 SYNOPSIS
 
@@ -385,7 +379,7 @@ and you do not want Term::ReadLine::Event to create the default type.
 
 =back
 
-Paramters for setting up the event loop, if any are required, will be
+Parameters for setting up the event loop, if any are required, will be
 after this first parameter as named parameters, e.g.:
 
    Term::ReadLine::Event->with_IO_Async('myapp', loop => $loop);
@@ -444,24 +438,9 @@ to clean up after oneself.
 
 Access to the Term::ReadLine object itself.  Since Term::ReadLine::Event
 is not a Term::ReadLine, but HAS a Term::ReadLine, this gives access to
-the underlying object in case something isn't exposed sufficiently.  If
-you find yourself needing this, please contact me with your use case.  And,
-preferably, a patch :-)
-
-=head2 readline
-
-Wrapper for Term::ReadLine's readline.  Makes it convenient to just
-call C<$term-E<gt>readline(...)>.
-
-=head2 Attribs
-
-Wrapper for Term::ReadLine's Attribs.  Makes it convenient to just
-call C<$term-E<gt>Attribs(...)>.
-
-=head2 addhistory
-
-Wrapper for Term::ReadLine's addhistory.  Makes it convenient to just
-call C<$term-E<gt>addhistory(...)>.
+the underlying object in case something isn't exposed sufficiently.  This
+should not be an issue since T::RL::E automatically maps any call it doesn't
+recognise directly on to the underlying T::RL.
 
 =head1 AUTHOR
 
@@ -534,4 +513,3 @@ This is free software; you can redistribute it and/or modify it under
 the same terms as the Perl 5 programming language system itself.
 
 =cut
-

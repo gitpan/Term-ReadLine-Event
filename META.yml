@@ -9,7 +9,7 @@ build_requires:
 configure_requires:
   Module::Build: 0.3601
 dynamic_config: 0
-generated_by: 'Dist::Zilla version 4.300010, CPAN::Meta::Converter version 2.120630'
+generated_by: 'Dist::Zilla version 4.300028, CPAN::Meta::Converter version 2.120921'
 license: perl
 meta-spec:
   url: http://module-build.sourceforge.net/META-spec-v1.4.html
@@ -25,5 +25,6 @@ requires:
   strict: 0
   warnings: 0
 resources:
-  repository: git://github.com/dmcbride/Term-ReadLine-Event.git
-version: 0.03
+  homepage: https://github.com/dmcbride/Term-ReadLine-Event
+  repository: https://github.com/dmcbride/Term-ReadLine-Event.git
+version: 0.04
